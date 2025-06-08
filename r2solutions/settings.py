@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import dj_database_url
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -138,3 +139,23 @@ if 'RAILWAY_ENVIRONMENT' in os.environ:
         "https://fregira.github.io",
     ]
     CORS_ALLOW_ALL_ORIGINS = True  # For development
+
+## CSRF Settings for Railway Production
+CSRF_TRUSTED_ORIGINS = [
+    'https://web-production-da645.up.railway.app',
+    'https://*.railway.app',
+    'https://*.up.railway.app',
+]
+
+# Additional security settings for Railway
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = False
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# Allow all hosts for Railway (you can restrict this later)
+ALLOWED_HOSTS = ['*']
+
+# Make sure DEBUG is True to see detailed errors
+DEBUG = True
